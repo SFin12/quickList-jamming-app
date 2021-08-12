@@ -1,5 +1,6 @@
 const clientId = "4880f2a6ca94441e9f3010978a01efe8";
-const redirectUri = "http://quickList.surge.sh/";
+//const redirectUri = "http://quickList.surge.sh/";
+const redirectUri = "http://localhost:3000";
 
 let accessToken;
 
@@ -38,6 +39,7 @@ const Spotify = {
       })
       .then((jsonResponse) => {
         if (!jsonResponse.tracks) {
+          console.log("No results");
           return [];
         }
 
@@ -84,6 +86,61 @@ const Spotify = {
               }
             );
           });
+      });
+  },
+  showPlaylists() {
+    const accessToken = Spotify.getAccessToken();
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    let userId;
+
+    return fetch("https://api.spotify.com/v1/me", {
+      headers: headers,
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        userId = jsonResponse.id;
+
+        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+          headers: headers,
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((jsonResponse) => {
+            if (!jsonResponse.items) {
+              console.log("empty response");
+              return [];
+            }
+            return jsonResponse.items.map((playlist) => ({
+              id: playlist.id,
+              name: playlist.name,
+            }));
+          });
+      });
+  },
+
+  getPlaylist(playlistId) {
+    const accessToken = Spotify.getAccessToken();
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    console.log(playlistId);
+    return fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+      headers: headers,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        if (!jsonResponse.tracks) {
+          console.log("empty response");
+          return [];
+        }
+        return jsonResponse.tracks.items.map((item) => ({
+          id: item.track.id,
+          name: item.track.name,
+          artist: item.track.artists[0].name,
+          album: item.track.album.name,
+          uri: item.track.uri,
+        }));
       });
   },
 };

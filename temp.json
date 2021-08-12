@@ -1,0 +1,47 @@
+{
+  
+  "name": "rock",
+  
+  "tracks": {
+    "href": "https://api.spotify.com/v1/playlists/1LxoNhCWZlDVb804yYACbh/tracks?offset=0&limit=100",
+    "items": [
+      {
+        "track": {
+          "album": {
+            "album_type": "album",
+            "href": "https://api.spotify.com/v1/albums/1HiG0ukRmFPN13EVcf98Jx",
+            "id": "1HiG0ukRmFPN13EVcf98Jx",
+            "name": "Sweet Baby James (2019 Remaster)",
+            "release_date": "1970-02-01",
+            "release_date_precision": "day",
+            "total_tracks": 11,
+            "type": "album",
+            "uri": "spotify:album:1HiG0ukRmFPN13EVcf98Jx"
+          },
+          "artists": [
+            {
+              "href": "https://api.spotify.com/v1/artists/0vn7UBvSQECKJm2817Yf1P",
+              "id": "0vn7UBvSQECKJm2817Yf1P",
+              "name": "James Taylor",
+              "type": "artist",
+              "uri": "spotify:artist:0vn7UBvSQECKJm2817Yf1P"
+            }
+          ],
+
+        
+         
+          "href": "https://api.spotify.com/v1/tracks/1oht5GevPN9t1T3kG1m1GO",
+          "id": "1oht5GevPN9t1T3kG1m1GO",
+          "is_local": false,
+          "name": "Fire and Rain - 2019 Remaster",
+          "popularity": 72,
+          "preview_url": "https://p.scdn.co/mp3-preview/5da3a9c24b15fcb0a57f2d1aee7b9fac0fdcd99a?cid=774b29d4f13844c495f206cafdad9c86",
+          "track": true,
+          "track_number": 7,
+          "type": "track",
+          "uri": "spotify:track:1oht5GevPN9t1T3kG1m1GO"
+        }
+      }
+    ]
+  }
+}
