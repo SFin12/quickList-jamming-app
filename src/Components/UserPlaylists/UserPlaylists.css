@@ -1,6 +1,6 @@
 .structure {
   width: 50%;
-  height: 950px;
+  max-height: 950px;
   overflow-y: scroll;
   padding: 0.88rem;
   background-color: rgba(1, 12, 63, 0.7);
@@ -41,7 +41,7 @@
 }
 
 .playlist-information h3 {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .content {
@@ -60,10 +60,11 @@
 }
 
 .title {
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   display: block;
   font-size: 1.2rem;
+  font-weight: bold;
   text-decoration: underline rgba(256, 256, 256, 0.5) solid;
 }
 
