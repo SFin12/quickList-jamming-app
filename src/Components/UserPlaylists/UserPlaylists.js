@@ -32,12 +32,11 @@ class UserPlaylists extends React.Component {
         <div className="userPlaylist">
           {this.props.userPlaylists.map((playlist) => {
             return (
-              <div className="playlist-information">
+              <div className="playlist-information" key={playlist.id + "div"}>
                 <h3
                   className="title"
                   value={playlist.name}
                   id={playlist.id}
-                  key={playlist.id}
                   onClick={this.handleClick}
                 >
                   {playlist.name}

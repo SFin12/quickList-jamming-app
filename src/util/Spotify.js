@@ -1,6 +1,6 @@
 const clientId = "4880f2a6ca94441e9f3010978a01efe8";
-//const redirectUri = "http://quickList.surge.sh/";
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://quickList.surge.sh/";
+//const redirectUri = "http://localhost:3000";
 
 let accessToken;
 
