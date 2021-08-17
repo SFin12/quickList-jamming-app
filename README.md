@@ -12,3 +12,7 @@
   - The ability to see existing playlists on load.
   - The ability to click on a playlist and see the included tracks below the playlist title.
   - The ability to save songs to an existing playlist by clicking on the playlist or creating the same name.
+
+## Using the web app
+
+- To use the app you must have a spotify account and give the app permission to access your account.
