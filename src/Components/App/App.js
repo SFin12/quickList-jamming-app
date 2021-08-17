@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: [],
-      playlistName: "Playlist Name",
+      playlistName: "New Playlist",
       playlistTracks: [],
       userPlaylists: [],
       selectedPlaylist: [],
@@ -52,12 +52,44 @@ class App extends React.Component {
 
   savePlaylist() {
     const trackUris = this.state.playlistTracks.map((track) => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
-      this.setState({
-        playlistName: "New Playlist",
-        playlistTracks: [],
-      });
+    let playlistId;
+    this.state.userPlaylists.forEach((playlist) => {
+      if (playlist.name === this.state.playlistName) {
+        playlistId = playlist.id;
+      }
     });
+
+    if (playlistId) {
+      Spotify.updatePlaylist(playlistId, trackUris)
+        .then(() => {
+          this.setState({
+            playlistName: "New Playlist",
+            playlistTracks: [],
+          });
+        })
+        .then(() => {
+          Spotify.showPlaylists().then((playlists) => {
+            this.setState({ userPlaylists: playlists });
+          });
+        });
+    } else {
+      Spotify.savePlaylist(
+        this.state.playlistName,
+        this.userPlaylists,
+        trackUris
+      )
+        .then(() => {
+          this.setState({
+            playlistName: "New Playlist",
+            playlistTracks: [],
+          });
+        })
+        .then(() => {
+          Spotify.showPlaylists().then((playlists) => {
+            this.setState({ userPlaylists: playlists });
+          });
+        });
+    }
   }
 
   search(term) {
@@ -69,15 +101,15 @@ class App extends React.Component {
 
   viewPlaylist(playlist) {
     Spotify.getPlaylist(playlist.id).then((tracksArray) => {
-      console.log(tracksArray);
-      return this.setState({ selectedPlaylist: tracksArray });
+      return this.setState({
+        selectedPlaylist: tracksArray,
+      });
     });
   }
 
   componentDidMount() {
     console.log("component did mount");
     Spotify.showPlaylists().then((playlists) => {
-      console.log(playlists);
       this.setState({ userPlaylists: playlists });
     });
   }
@@ -95,6 +127,7 @@ class App extends React.Component {
               searchResults={this.state.searchResults}
               onAdd={this.addTrack}
             />
+
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
@@ -103,6 +136,7 @@ class App extends React.Component {
               onSave={this.savePlaylist}
             />
             <UserPlaylists
+              onOpen={this.updatePlaylistName}
               userPlaylists={this.state.userPlaylists}
               viewPlaylist={this.viewPlaylist}
               selectedPlaylist={this.state.selectedPlaylist}

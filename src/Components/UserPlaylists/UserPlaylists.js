@@ -1,4 +1,5 @@
 import React from "react";
+import ViewPlaylist from "../ViewPlaylist/ViewPlaylist";
 import "./UserPlaylists.css";
 
 class UserPlaylists extends React.Component {
@@ -17,6 +18,11 @@ class UserPlaylists extends React.Component {
       showPlaylist: !this.state.showPlaylist,
       selectedPlaylistId: e.target.id,
     });
+    const newName = !this.state.showPlaylist
+      ? e.target.textContent
+      : "New Playlist";
+
+    this.props.onOpen(newName);
   }
 
   render() {
@@ -29,26 +35,20 @@ class UserPlaylists extends React.Component {
               <div className="playlist-information">
                 <h3
                   className="title"
+                  value={playlist.name}
                   id={playlist.id}
                   key={playlist.id}
                   onClick={this.handleClick}
                 >
                   {playlist.name}
                 </h3>
-                {this.state.selectedPlaylistId === playlist.id
-                  ? this.state.showPlaylist
-                    ? this.props.selectedPlaylist.map((track) => {
-                        return (
-                          <div className="content">
-                            <h4>{track.name}</h4>
-                            <p>
-                              {track.artist} | {track.album}
-                            </p>
-                          </div>
-                        );
-                      })
-                    : null
-                  : null}
+                {this.state.selectedPlaylistId === playlist.id ? (
+                  this.state.showPlaylist ? (
+                    <ViewPlaylist
+                      selectedPlaylist={this.props.selectedPlaylist}
+                    />
+                  ) : null
+                ) : null}
               </div>
             );
           })}
